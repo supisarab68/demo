@@ -1,3 +1,11 @@
-<a th:href="@{'/menu/' + ${menu.id}}">
-    <h3 th:text="${menu.name}"></h3>
-</a>
+
+<div class="menu-grid">
+    <div class="menu-card" th:each="menu : ${menus}">
+        <img th:src="${menu.imageUrl}" alt="">
+        <div class="menu-info">
+            <div class="menu-name" th:text="${menu.name}"></div>
+            <div class="menu-price" 
+                 th:text="'$' + ${menu.price}"></div>
+        </div>
+    </div>
+</div>

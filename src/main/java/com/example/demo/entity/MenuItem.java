@@ -20,7 +20,8 @@ public class MenuItem {
     @Enumerated(EnumType.STRING) 
     private MenuCategory category; 
 
-    
+    public MenuItem() {
+}
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
