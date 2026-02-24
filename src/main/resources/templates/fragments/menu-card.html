@@ -1,0 +1,7 @@
+<div th:fragment="menuCard(name, price, imageUrl)" class="menu-card">
+    <img th:src="${imageUrl}" alt="">
+    <div class="menu-info">
+        <div class="menu-name" th:text="${name}"></div>
+        <div class="menu-price" th:text="${price}"></div>
+    </div>
+</div>
