@@ -2,5 +2,6 @@ package com.example.demo.entity;
 
 public enum MenuCategory {
     DESSERT,   
-    BEVERAGE  
+    Hot_BEVERAGE,
+    Cold_BEVERAGE
 }
