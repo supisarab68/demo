@@ -38,7 +38,7 @@ public class Project2Application {
             cheesecake.setCategory(MenuCategory.DESSERT);
 
             MenuItem stawberrycake = new MenuItem();
-            stawberrycake.setName("stawberryCake");
+            stawberrycake.setName("strawberryCake");
             stawberrycake.setPrice(45.0);
             stawberrycake.setCategory(MenuCategory.DESSERT);
 
