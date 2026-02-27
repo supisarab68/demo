@@ -6,8 +6,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity 
+@Table(name = "menu_item")
 public class MenuItem {
 
     @Id 
@@ -15,6 +17,7 @@ public class MenuItem {
     private Long id;
 
     private String name; 
+    private String image;
     private Double price; 
 
     @Enumerated(EnumType.STRING) 
@@ -33,4 +36,7 @@ public class MenuItem {
 
     public MenuCategory getCategory() { return category; }
     public void setCategory(MenuCategory category) { this.category = category; }
+
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 }

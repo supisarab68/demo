@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ABC cafe</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>ABC cafe</h1>
+
+<div class="categories">
+
+    <a th:href="@{/}">
+        <button th:classappend="${selectedCategory == null} ? 'active'">
+            All
+        </button>
+    </a>
+
+    <a th:href="@{/?category=COLD_BEVERAGE}">
+        <button th:classappend="${selectedCategory == 'COLD_BEVERAGE'} ? 'active'">
+            Cold drink
+        </button>
+    </a>
+
+    <a th:href="@{/?category=HOT_BEVERAGE}">
+        <button th:classappend="${selectedCategory == HOT_BEVERAGE} ? 'active'">
+            Hot drink
+        </button>
+    </a>
+
+    <a th:href="@{/?category=DESSERT}">
+        <button th:classappend="${selectedCategory == DESSERT} ? 'active'">
+            Dessert
+        </button>
+    </a>
+
+</div>
+    <div class="menu-grid">
+
+    <div th:each="menu : ${menus}">
+    
+    <a th:href="@{/menu/{id}(id=${menu.id})}" 
+       style="text-decoration: none; color: inherit;">
+
+        <div class="card">
+
+            <img th:src="@{${menu.image}}" alt="menu image">
+
+            <div class="info">
+                <h3 th:text="${menu.name}"></h3>
+
+                <p class="price">
+                    ฿<span th:text="${menu.price}"></span>
+                </p>
+            </div>
+
+        </div>
+
+    </a>
+
+</div>        
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

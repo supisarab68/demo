@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- image -->
+    <img th:src="@{'/image/' + ${item.image}}" class="menu-image">
+
+    <!-- name + price -->
+    <div class="menu-header">
+        <h2 th:text="${item.name}"></h2>
+        <h3 th:text="'฿ ' + ${item.price}"></h3>
+    </div>
+
+    <form th:action="@{/cart/add}" method="post">
+
+        <input type="hidden" name="id" th:value="${item.id}">
+
+
+        <!-- Sweetness -->
+        <div class="section"
+             th:if="${item.category != null and item.category.name() != 'DESSERT'}">
+
+            <h4>Sweetness</h4>
+
+            <label><input type="radio" name="sweetness" value="25%"> 25%</label><br>
+            <label><input type="radio" name="sweetness" value="50%"> 50%</label><br>
+            <label><input type="radio" name="sweetness" value="100%"> 100%</label>
+        </div>
+
+        <!-- Note -->
+        <div class="section">
+            <h4>Note</h4>
+            <textarea name="note" class="note-box"></textarea>
+        </div>
+
+        <!-- Quantity -->
+        <div class="qty-box">
+            <button type="button" onclick="decrease()">−</button>
+            <input type="number" id="qty" name="quantity" value="1" min="1">
+            <button type="button" onclick="increase()">+</button>
+        </div>
+
+        <!-- order button -->
+        <button type="submit" class="add-btn">Order</button>
+
+    </form>
+</div>
+
+<script>
+    function increase() {
+        let qty = document.getElementById("qty");
+        qty.value = parseInt(qty.value) + 1;
+    }
+
+    function decrease() {
+        let qty = document.getElementById("qty");
+        if (qty.value > 1) {
+            qty.value = parseInt(qty.value) - 1;
+        }
+    }
+</script>
+
+</body>
+</html>
