@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Order</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="order-container">
+
+    <h1>My Order</h1>
+
+    <!-- if ตะกร้าว่าง -->
+    <div th:if="${cart.totalItems == 0}" class="empty-cart">
+        <p>Your cart is empty.</p>
+        <a th:href="@{/}" class="back-btn">Back to Menu</a>
+    </div>
+
+    <!-- if กรณีมีสินค้า -->
+    <div th:if="${cart.totalItems > 0}">
+
+        <div class="order-list">
+
+            <div class="order-item" th:each="item : ${cart.items}">
+                
+                <div class="item-info">
+                    <h3 th:text="${item.menuItem.name}"></h3>
+                    <p>
+                        Qty: <span th:text="${item.quantity}"></span>
+                    </p>
+                </div>
+
+                <div class="item-price">
+                    ฿ <span th:text="${item.menuItem.price * item.quantity}"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- รวมราคา -->
+        <div class="order-summary">
+            <h2>
+                Total: ฿ <span th:text="${cart.totalPrice}"></span>
+            </h2>
+        </div>
+
+        <div class="order-actions">
+            <a th:href="@{/}" class="back-btn">Back</a>
+            <button class="confirm-btn">Order  now</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

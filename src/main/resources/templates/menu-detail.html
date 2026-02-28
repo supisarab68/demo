@@ -8,6 +8,8 @@
 
 <body>
 
+
+
 <div class="container">
 
     <!-- image -->
@@ -22,7 +24,6 @@
     <form th:action="@{/cart/add}" method="post">
 
         <input type="hidden" name="id" th:value="${item.id}">
-
 
         <!-- Sweetness -->
         <div class="section"
@@ -53,6 +54,9 @@
 
     </form>
 </div>
+
+
+
 
 <script>
     function increase() {
