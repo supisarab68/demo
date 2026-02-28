@@ -29,7 +29,9 @@ public class OrderController {
         
         OrderSummary summary = new OrderSummary();
         summary.setOrderedItems(request.getItems()); 
-        summary.setTotalPrice(totalPrice);           
+        summary.setTotalPrice(totalPrice);
+        
+        summary.setMessage("รายการเข้าครัวแล้ว! 👨‍🍳🍳");           
 
         return summary; 
     }
@@ -37,6 +39,9 @@ public class OrderController {
 
 
 class OrderSummary {
+
+    private String message;
+
     private List<OrderItemRequest> orderedItems; 
     private Double totalPrice;
 
@@ -45,6 +50,8 @@ class OrderSummary {
 
     public Double getTotalPrice() { return totalPrice; }
     public void setTotalPrice(Double totalPrice) { this.totalPrice = totalPrice; }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
 }
 
 
