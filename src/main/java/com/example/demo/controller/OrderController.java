@@ -31,7 +31,7 @@ public class OrderController {
         summary.setOrderedItems(request.getItems()); 
         summary.setTotalPrice(totalPrice);
         
-        summary.setMessage("รายการเข้าครัวแล้ว! 👨‍🍳🍳");           
+        summary.setMessage("รายการเข้าครัวแล้ว");           
 
         return summary; 
     }
