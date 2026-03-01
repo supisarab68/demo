@@ -15,7 +15,7 @@ public class OrderController {
 
     
     @PostMapping
-    public OrderSummary processOrder(@RequestBody OrderRequest request) {
+    public Summary processOrder(@RequestBody OrderRequest request) {
         
         double totalPrice = 0.0;
 
@@ -27,7 +27,7 @@ public class OrderController {
         }
 
         
-        OrderSummary summary = new OrderSummary();
+        Summary summary = new Summary();
         summary.setOrderedItems(request.getItems()); 
         summary.setTotalPrice(totalPrice);
         

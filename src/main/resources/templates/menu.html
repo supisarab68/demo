@@ -12,7 +12,7 @@
             font-family: 'Poppins', sans-serif;
             background-color: #f5f3ef;
             margin: 0;
-            color: #2d2d2d;
+            color: #a8ad97;
         }
 
         .container {
@@ -40,6 +40,8 @@
             margin-right: 18px;
             cursor: pointer;
             color: #888;
+            padding: 8px 16px;
+            border-radius: 20px;
             transition: 0.3s;
         }
 
@@ -47,6 +49,16 @@
             color: #6f4e37;
             font-weight: 600;
         }
+
+        .filter-btn.active {
+        background-color: #d0c9b5;
+        color: white;
+        font-weight: 500;
+        }
+
+/*-----------------------------------------------------*/
+
+
 
         /* ===== GRID ===== */
         .menu-grid {
@@ -127,11 +139,32 @@
 
     <!-- Filter -->
     <div class="filter-group">
-        <button class="filter-btn">All</button>
-        <button class="filter-btn">Cold drink</button>
-        <button class="filter-btn">Hot drink</button>
-        <button class="filter-btn">Dessert</button>
-    </div>
+
+    <a th:href="@{/}"
+       th:classappend="${selectedCategory == null} ? 'active' : ''"
+       class="filter-btn">
+        All
+    </a>
+
+    <a th:href="@{/?category=COLD_BEVERAGE}" 
+       th:classappend="${selectedCategory?.name() == 'COLD_BEVERAGE'} ? 'active' : ''"
+       class="filter-btn">
+        Cold drink
+    </a>
+
+    <a th:href="@{/?category=HOT_BEVERAGE}" 
+       th:classappend="${selectedCategory?.name() == 'HOT_BEVERAGE'} ? 'active' : ''"
+       class="filter-btn">
+        Hot drink
+    </a>
+
+    <a th:href="@{/?category=DESSERT}" 
+       th:classappend="${selectedCategory?.name() == 'DESSERT'} ? 'active' : ''"
+       class="filter-btn">
+        Dessert
+    </a>
+
+</div>
 
     <!-- Menu Grid -->
     <div class="menu-grid">
@@ -140,12 +173,14 @@
            th:href="@{'/menu/' + ${menu.id}}"
            class="menu-card">
 
-            <img th:src="@{${menu.image}}" class="menu-img" alt="menu image">
+            <img th:src="@{${menu.image}}" 
+                class="menu-img" 
+                alt="menu image">
+
             <h3 th:text="${menu.name}"></h3>
             <div class="price" th:text="'฿' + ${menu.price}"></div>
 
         </a>
-        </div>
 
     </div>
 
@@ -154,11 +189,13 @@
 <!-- Checkout Bar -->
 <div class="checkout-bar">
     <div>
-        Items: <span th:text="${totalItems}"></span>
+        Items: <span th:text="${cartItems}"></span>
         |
-        ฿ <span th:text="${totalPrice}"></span>
+        ฿ <span th:text="${cartTotal}"></span>
     </div>
-    <button>Check Out</button>
+    <a th:href="@{/my-order}" class="checkout-btn">
+        Check Out
+</a>
 </div>
 
 </body>

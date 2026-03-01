@@ -34,27 +34,24 @@ public class MenuController {
     ) {
 
         List<MenuItem> menus;
+        MenuCategory selectedCategory = null;
 
         // กัน error 
         if (category != null) {
             try {
-                MenuCategory selected = MenuCategory.valueOf(category);
-                menus = menuItemRepository.findByCategory(selected);
-                model.addAttribute("selectedCategory", category);
+                selectedCategory = MenuCategory.valueOf(category);
+                menus = menuItemRepository.findByCategory(selectedCategory);
             } catch (IllegalArgumentException e) {
                 menus = menuItemRepository.findAll();
-                model.addAttribute("selectedCategory", null);
             }
         } else {
             menus = menuItemRepository.findAll();
-            System.out.println("DB menus size = " + menus.size());
-            model.addAttribute("selectedCategory", null);
         }
 
         Cart cart = getOrCreateCart(session);
 
         model.addAttribute("menus", menus);
-        model.addAttribute("cart", cart);
+        model.addAttribute("selectedCategory", selectedCategory);
         model.addAttribute("cartItems", cart.getTotalItems());
         model.addAttribute("cartTotal", cart.getTotalPrice());
 
@@ -90,13 +87,14 @@ public class MenuController {
         MenuItem item = menuItemRepository.findById(id).orElse(null);
 
         if (item != null && quantity > 0) {
-            cart.addItem(item, quantity);
+            cart.addItem(item, quantity, null ,null);
         }
 
         session.setAttribute("cart", cart);
 
         return "redirect:/";
     }
+
 
     
     // my order 

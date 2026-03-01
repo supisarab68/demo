@@ -23,7 +23,9 @@ public class CartController {
 
     @PostMapping("/add")
     public String addToCart(@RequestParam Long id,
-                            @RequestParam int quantity,
+                            @RequestParam(defaultValue = "1") int quantity,
+                            @RequestParam(required = false) String sweetness,
+                            @RequestParam(required = false) String note,
                             HttpSession session) {
 
         Cart cart = (Cart) session.getAttribute("cart");
@@ -35,7 +37,7 @@ public class CartController {
         MenuItem item = menuItemRepository.findById(id).orElse(null);
 
         if (item != null) {
-            cart.addItem(item, quantity);
+            cart.addItem(item, quantity, sweetness, note);
         }
 
         session.setAttribute("cart", cart);

@@ -29,6 +29,12 @@
                     <p>
                         Qty: <span th:text="${item.quantity}"></span>
                     </p>
+                    <p th:if="${item.sweetness != null}">
+                        Sweetness: <span th:text="${item.sweetness}"></span>
+                    </p>
+                    <p th:if="${item.note != null}">
+                        Note: <span th:text="${item.note}"></span>
+                    </p>
                 </div>
 
                 <div class="item-price">
@@ -47,7 +53,7 @@
         </div>
 
         <div class="order-actions">
-            <a th:href="@{/}" class="back-btn">Back</a>
+            <a th:href="@{/}" class="close-btn">&times;</a>
             <button class="confirm-btn">Order  now</button>
         </div>
 

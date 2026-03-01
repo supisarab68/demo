@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-public class OrderSummary {
+public class Summary {
     
     
     private List<OrderItemRequest> orderedItems; 
