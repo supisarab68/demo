@@ -59,12 +59,20 @@
 
         <div class="order-actions">
             <a th:href="@{/}" class="close-btn">Cancel</a>
-            <button class="confirm-btn">Order Now</button>
+            <button class="confirm-btn" onclick="confirmOrder()">Order Now</button>
         </div>
 
     </div>
 
 </div>
-
+<script>
+        function confirmOrder() {
+            // 1. จำข้อความแจ้งเตือนไว้ในความจำเบราว์เซอร์
+            sessionStorage.setItem('orderMessage', 'รายการเข้าครัวแล้ว! กรุณารอซักครู่...');
+            
+            // 2. เด้งกลับไปหน้าแรก (ปกติ Spring Boot จะใช้ '/' เป็นหน้าแรก)
+            window.location.href = '/'; 
+        }
+    </script>
 </body>
 </html>

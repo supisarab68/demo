@@ -132,6 +132,50 @@
 </div>
 
 </div>
+<div id="toast-container" class="toast hidden"></div>
 
+<style>
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333333; /* สีดำเท่ๆ */
+        color: #ffffff;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-family: sans-serif;
+        font-size: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        z-index: 9999;
+        transition: all 0.4s ease-in-out;
+    }
+    .toast.hidden {
+        opacity: 0;
+        bottom: -50px; 
+        visibility: hidden;
+    }
+</style>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // แอบเช็คว่ามีข้อความฝากไว้จากหน้า my-order ไหม?
+        const msg = sessionStorage.getItem('orderMessage');
+        
+        if (msg) {
+            const toast = document.getElementById('toast-container');
+            toast.innerText = msg; // ใส่ข้อความ "รายการเข้าครัวแล้ว!"
+            toast.classList.remove('hidden'); // โชว์กล่อง
+            
+            // ให้กล่องหายไปเองใน 3 วินาที
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+            
+            // ลบความจำทิ้ง รีเฟรชหน้าจะได้ไม่เด้งซ้ำ
+            sessionStorage.removeItem('orderMessage');
+        }
+    });
+</script>
 </body>
 </html>
