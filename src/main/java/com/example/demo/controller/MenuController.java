@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.MenuCategory;
@@ -75,25 +76,27 @@ public class MenuController {
     
     // เหมือนจะไม่ใช้แล้วปุ่มนี้เเล้ว เทสอีกที
     
-    @GetMapping("/add-to-cart/{id}")
+    @PostMapping("/add-to-cart")
     public String addToCart(
-            @PathVariable Long id,
-            @RequestParam(defaultValue = "1") int quantity,
-            HttpSession session
-    ) {
+        @RequestParam Long menuId,
+        @RequestParam int quantity,
+        @RequestParam(required = false) String sweet,
+        @RequestParam(required = false) String note,
+        HttpSession session
+) {
 
-        Cart cart = getOrCreateCart(session);
+    Cart cart = getOrCreateCart(session);
 
-        MenuItem item = menuItemRepository.findById(id).orElse(null);
+    MenuItem item = menuItemRepository.findById(menuId).orElse(null);
 
-        if (item != null && quantity > 0) {
-            cart.addItem(item, quantity, null ,null);
-        }
-
-        session.setAttribute("cart", cart);
-
-        return "redirect:/";
+    if (item != null && quantity > 0) {
+        cart.addItem(item, quantity, sweet, note);
     }
+
+    session.setAttribute("cart", cart);
+
+    return "redirect:/";
+}
 
 
     

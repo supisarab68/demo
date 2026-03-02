@@ -1,76 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Detail</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-
-
 
 <div class="container">
 
-    <!-- image -->
-    <img th:src="@{'/image/' + ${item.image}}" class="menu-image">
+    <div class="menu-detail-card">
+        
+        <a th:href="@{/}" class="back-close-btn">&times;</a>
 
-    <!-- name + price -->
-    <div class="menu-header">
-        <h2 th:text="${item.name}"></h2>
-        <h3 th:text="'฿ ' + ${item.price}"></h3>
+        <!-- รูป -->
+        <img th:src="${item.image}" class="detail-img">
+
+        <div class="detail-content">
+
+            <h1 th:text="${item.name}" class="item-name"></h1>
+
+            <p class="item-price">
+                ฿ <span th:text="${item.price}"></span>
+            </p>
+
+            <!-- 🔥 FORM เริ่มตรงนี้ -->
+            <form th:action="@{/add-to-cart}" method="post">
+
+                <!-- ส่ง id ไป backend -->
+                <input type="hidden" name="menuId" th:value="${item.id}">
+                <input type="hidden" name="quantity" id="quantityHidden" value="1">
+
+                <!-- Sweetness -->
+                <div class="form-section">
+                    <p class="section-title">Sweetness</p>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sweet" value="25"> 25%</label>
+                        <label><input type="radio" name="sweet" value="50"> 50%</label>
+                        <label><input type="radio" name="sweet" value="100"> 100%</label>
+                    </div>
+                </div>
+
+                <!-- Note -->
+                <div class="form-section">
+                    <p class="section-title">Note</p>
+                    <textarea name="note" class="note-input"
+                        placeholder="Extra ice, less sugar..."></textarea>
+                </div>
+
+                <!-- Quantity -->
+                <div class="qty-control">
+                    <button type="button" class="qty-btn" id="minusBtn">−</button>
+                    <input type="number" value="1" min="1"
+                           class="qty-input" id="qtyInput">
+                    <button type="button" class="qty-btn" id="plusBtn">+</button>
+                </div>
+
+                <!-- Order -->
+                <button type="submit" class="btn-primary">Order</button>
+
+            </form>
+            <!-- 🔥 FORM จบตรงนี้ -->
+
+        </div>
     </div>
-
-    <form th:action="@{/cart/add}" method="post">
-
-        <input type="hidden" name="id" th:value="${item.id}">
-
-        <!-- Sweetness -->
-        <div class="section"
-             th:if="${item.category != null and item.category.name() != 'DESSERT'}">
-
-            <h4>Sweetness</h4>
-
-            <label><input type="radio" name="sweetness" value="25%"> 25%</label><br>
-            <label><input type="radio" name="sweetness" value="50%"> 50%</label><br>
-            <label><input type="radio" name="sweetness" value="100%"> 100%</label>
-        </div>
-
-        <!-- Note -->
-        <div class="section">
-            <h4>Note</h4>
-            <textarea name="note" class="note-box"></textarea>
-        </div>
-
-        <!-- Quantity -->
-        <div class="qty-box">
-            <button type="button" onclick="decrease()">−</button>
-            <input type="number" id="qty" name="quantity" value="1" min="1">
-            <button type="button" onclick="increase()">+</button>
-        </div>
-
-        <!-- order button -->
-        <button type="submit" class="add-btn">Order</button>
-
-    </form>
 </div>
 
-
-
-
 <script>
-    function increase() {
-        let qty = document.getElementById("qty");
-        qty.value = parseInt(qty.value) + 1;
-    }
+    const minusBtn = document.getElementById("minusBtn");
+    const plusBtn = document.getElementById("plusBtn");
+    const qtyInput = document.getElementById("qtyInput");
+    const quantityHidden = document.getElementById("quantityHidden");
 
-    function decrease() {
-        let qty = document.getElementById("qty");
-        if (qty.value > 1) {
-            qty.value = parseInt(qty.value) - 1;
+    minusBtn.addEventListener("click", () => {
+        let current = parseInt(qtyInput.value);
+        if (current > 1) {
+            qtyInput.value = current - 1;
+            quantityHidden.value = qtyInput.value;
         }
-    }
+    });
+
+    plusBtn.addEventListener("click", () => {
+        let current = parseInt(qtyInput.value);
+        qtyInput.value = current + 1;
+        quantityHidden.value = qtyInput.value;
+    });
+
+    // sync ตอนพิมพ์เอง
+    qtyInput.addEventListener("input", () => {
+        quantityHidden.value = qtyInput.value;
+    });
+
+
 </script>
+
+<style>
+ @media (min-width: 760px) {
+    .menu-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+}   
+</style>
 
 </body>
 </html>
