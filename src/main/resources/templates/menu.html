@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f5f3ef;
@@ -52,14 +51,10 @@
         }
 
         .filter-btn.active {
-        background-color: #d0c9b5;
-        color: #646C51;
-        font-weight: 500;
+            background-color: #d0c9b5;
+            color: #646C51;
+            font-weight: 500;
         }
-
-/*-----------------------------------------------------*/
-
-
 
         /* ===== GRID ===== */
         .menu-grid {
@@ -74,6 +69,8 @@
             border-radius: 18px;
             padding: 20px;
             transition: 0.3s ease;
+            text-decoration: none; /* เอาขีดเส้นใต้ลิงก์ออก */
+            color: inherit;
         }
 
         .menu-card:hover {
@@ -113,9 +110,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-sizing: border-box; /* ป้องกันไม่ให้แถบล้นจอ */
         }
 
-        .checkout-bar button {
+        .checkout-bar .checkout-btn {
             background: #6f4e37;
             color: white;
             border: none;
@@ -124,49 +122,67 @@
             font-weight: 500;
             cursor: pointer;
             transition: 0.3s;
+            text-decoration: none;
         }
 
-        .checkout-bar button:hover {
+        .checkout-bar .checkout-btn:hover {
             background: #5a3e2c;
         }
 
         @media (max-width: 768px) {
-    .menu-grid {
-        grid-template-columns: repeat(1, 1fr);
-        gap: 16px;
-    }
-    .menu-img {
-        height: 140px;
-    }
-    
-    h1 {
-        font-size: 28px;
-    }
+            .menu-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 16px;
+            }
+            .menu-img {
+                height: 140px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .container {
+                padding: 20px 16px 120px;
+            }
+            .filter-group {
+                display: flex;
+                flex-wrap: nowrap;
+                width: 100%;
+                overflow-x: auto; /* ให้มือถือเลื่อนซ้ายขวาได้ */
+            }
+            .filter-btn {
+                flex: 1 1 0;
+                min-width: fit-content;
+                margin: 0 4px;
+                padding: 6px 12px;
+                font-size: 14px;
+                text-align: center;
+                white-space: nowrap;
+            }
+            .checkout-bar {
+                padding: 15px 20px;
+            }
+        }
 
-    .container {
-        padding: 20px 16px 120px;
-    }
-}
-
-    @media (max-width: 768px){
-
-    .filter-group{
-        display: flex;
-        flex-wrap: nowrap;
-        width: 100%;
-    }
-
-    .filter-bth{
-        flex: 1 1 0;
-        min-width: 0;
-        margin: 0 2px;
-        padding: 6px 4px;
-        font-size: 15px;
-        text-align: center;
-        white-space: nowrap;
-    }
-}
-
+        /* ================== CSS กล่องแจ้งเตือน (เพิ่มใหม่) ================== */
+        .toast {
+            position: fixed;
+            bottom: 90px; /* ลอยสูง 90px เพื่อให้ข้ามแถบ Checkout Bar */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #6f4e37; /* สีน้ำตาลเข้ากับธีมร้าน */
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 9999;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* เด้งดึ๋งๆ */
+        }
+        .toast.hidden {
+            opacity: 0;
+            bottom: 50px; 
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
@@ -175,38 +191,33 @@
 
     <h1>ABC cafe</h1>
 
-    <!-- Filter -->
     <div class="filter-group">
+        <a th:href="@{/}"
+           th:classappend="${selectedCategory == null} ? 'active' : ''"
+           class="filter-btn">
+            All
+        </a>
 
-    <a th:href="@{/}"
-       th:classappend="${selectedCategory == null} ? 'active' : ''"
-       class="filter-btn">
-        All
-    </a>
+        <a th:href="@{/?category=COLD_BEVERAGE}" 
+           th:classappend="${selectedCategory?.name() == 'COLD_BEVERAGE'} ? 'active' : ''"
+           class="filter-btn">
+            Cold drink
+        </a>
 
-    <a th:href="@{/?category=COLD_BEVERAGE}" 
-       th:classappend="${selectedCategory?.name() == 'COLD_BEVERAGE'} ? 'active' : ''"
-       class="filter-btn">
-        Cold drink
-    </a>
+        <a th:href="@{/?category=HOT_BEVERAGE}" 
+           th:classappend="${selectedCategory?.name() == 'HOT_BEVERAGE'} ? 'active' : ''"
+           class="filter-btn">
+            Hot drink
+        </a>
 
-    <a th:href="@{/?category=HOT_BEVERAGE}" 
-       th:classappend="${selectedCategory?.name() == 'HOT_BEVERAGE'} ? 'active' : ''"
-       class="filter-btn">
-        Hot drink
-    </a>
+        <a th:href="@{/?category=DESSERT}" 
+           th:classappend="${selectedCategory?.name() == 'DESSERT'} ? 'active' : ''"
+           class="filter-btn">
+            Dessert
+        </a>
+    </div>
 
-    <a th:href="@{/?category=DESSERT}" 
-       th:classappend="${selectedCategory?.name() == 'DESSERT'} ? 'active' : ''"
-       class="filter-btn">
-        Dessert
-    </a>
-
-</div>
-
-    <!-- Menu Grid -->
     <div class="menu-grid">
-
         <a th:each="menu : ${menus}"
            th:href="@{'/menu/' + ${menu.id}}"
            class="menu-card">
@@ -217,14 +228,11 @@
 
             <h3 th:text="${menu.name}"></h3>
             <div class="price" th:text="'฿' + ${menu.price}"></div>
-
         </a>
-
     </div>
 
 </div>
 
-<!-- Checkout Bar -->
 <div class="checkout-bar">
     <div>
         Items: <span th:text="${cartItems}"></span>
@@ -233,8 +241,28 @@
     </div>
     <a th:href="@{/my-order}" class="checkout-btn">
         Check Out
-</a>
+    </a>
 </div>
+
+<div id="toast-container" class="toast hidden"></div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const msg = sessionStorage.getItem('orderMessage');
+        
+        if (msg) {
+            const toast = document.getElementById('toast-container');
+            toast.innerText = msg;
+            toast.classList.remove('hidden');
+            
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+            
+            sessionStorage.removeItem('orderMessage');
+        }
+    });
+</script>
 
 </body>
 </html>

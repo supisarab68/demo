@@ -11,13 +11,11 @@
 
     <h1 class="order-title">My Order</h1>
 
-    <!-- ตะกร้าว่าง -->
     <div th:if="${cart.totalItems == 0}" class="empty-cart">
         <p>Your cart is empty.</p>
         <a th:href="@{/}" class="back-btn">Back to Menu</a>
     </div>
 
-    <!-- มีสินค้า -->
     <div th:if="${cart.totalItems > 0}">
 
         <div class="order-card">
@@ -48,7 +46,6 @@
 
             <div class="divider"></div>
 
-            <!-- รวมราคา -->
             <div class="order-summary">
                 <h2>
                     Total: ฿ <span th:text="${cart.totalPrice}"></span>
@@ -59,20 +56,13 @@
 
         <div class="order-actions">
             <a th:href="@{/}" class="close-btn">Cancel</a>
-            <button class="confirm-btn" onclick="confirmOrder()">Order Now</button>
+            
+            <button type="button" class="confirm-btn" onclick="sessionStorage.setItem('orderMessage', 'รายการเข้าครัวแล้ว! กรุณารอซักครู่...'); window.location.href='/';">Order Now</button>
         </div>
 
     </div>
 
 </div>
-<script>
-        function confirmOrder() {
-            // 1. จำข้อความแจ้งเตือนไว้ในความจำเบราว์เซอร์
-            sessionStorage.setItem('orderMessage', 'รายการเข้าครัวแล้ว! กรุณารอซักครู่...');
-            
-            // 2. เด้งกลับไปหน้าแรก (ปกติ Spring Boot จะใช้ '/' เป็นหน้าแรก)
-            window.location.href = '/'; 
-        }
-    </script>
+
 </body>
 </html>
