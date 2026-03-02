@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 @RestController
 @RequestMapping("/api/orders")
 @CrossOrigin(origins = "*")
@@ -15,7 +17,7 @@ public class OrderController {
 
     
     @PostMapping
-    public Summary processOrder(@RequestBody OrderRequest request) {
+    public OrderSummary processOrder(@RequestBody OrderRequest request) {
         
         double totalPrice = 0.0;
 
@@ -27,11 +29,12 @@ public class OrderController {
         }
 
         
-        Summary summary = new Summary();
+        OrderSummary summary = new OrderSummary();
         summary.setOrderedItems(request.getItems()); 
         summary.setTotalPrice(totalPrice);
-        
         summary.setMessage("รายการเข้าครัวแล้ว");           
+          
+
 
         return summary; 
     }
