@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,5 +44,15 @@ public class CartController {
         session.setAttribute("cart", cart);
 
         return "redirect:/";
+    }
+    // ✨ โค้ดที่ต้องเพิ่มใหม่: สำหรับล้างตะกร้าตอนกดสั่ง
+    @GetMapping("/checkout")
+    public String checkoutAndClearCart(HttpSession session) {
+        
+        // 1. สั่งลบทิ้งข้อมูลตะกร้าที่ค้างอยู่ในความจำ
+        session.removeAttribute("cart"); 
+        
+        // 2. ลบเสร็จให้เซิร์ฟเวอร์บังคับเด้งกลับไปหน้าแรก (/)
+        return "redirect:/"; 
     }
 }
