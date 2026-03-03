@@ -19,6 +19,10 @@ public class Project2Application {
     @Bean
     public CommandLineRunner initData(MenuItemRepository repository) {
         return args -> {
+
+            if (repository.count() > 0 ) {
+                return;
+            }
             
             /*------------------------------------------------- */
             /*Cold Drinks Menu*/
@@ -27,6 +31,7 @@ public class Project2Application {
             cold_mocha.setName("Mocha (Cold)");
             cold_mocha.setPrice(40.0);
             cold_mocha.setCategory(MenuCategory.COLD_BEVERAGE);
+            cold_mocha.setImage("/image/cold_mocha.jpg");
             
 
             MenuItem cold_espresso = new MenuItem();
@@ -189,22 +194,22 @@ public class Project2Application {
             cheesecake.setName("CheeseCake");
             cheesecake.setPrice(45.0);
             cheesecake.setCategory(MenuCategory.DESSERT);
-            
+            cheesecake.setImage("/image/cheesecake.jpg");
 
-            MenuItem stawberrycake = new MenuItem();
-            stawberrycake.setName("strawberryCake");
-            stawberrycake.setPrice(45.0);
-            stawberrycake.setCategory(MenuCategory.DESSERT);
+            MenuItem strawberrycake = new MenuItem();
+            strawberrycake.setName("StrawberryCake");
+            strawberrycake.setPrice(45.0);
+            strawberrycake.setCategory(MenuCategory.DESSERT);
             
             
             /*Desert Menu*/
             /*------------------------------------------------- */
+
             //cold
             repository.save(cold_mocha);
             repository.save(cold_espresso);
             repository.save(cold_cappuccino);
             repository.save(cold_americano);
-            repository.save(hot_latte);
             repository.save(cold_cocoa);
             repository.save(cold_green_tea);
             repository.save(cold_matcha);
@@ -219,8 +224,6 @@ public class Project2Application {
             repository.save(hot_cappuccino);
             repository.save(hot_americano);
             repository.save(hot_latte);
-            repository.save(hot_cappuccino);
-            repository.save(hot_americano);
             repository.save(hot_cocoa);
             repository.save(hot_thai_tea);
             repository.save(hot_lemonade_tea);
@@ -229,7 +232,7 @@ public class Project2Application {
 
             //desert
             repository.save(cheesecake);
-            repository.save(stawberrycake);
+            repository.save(strawberrycake);
 
         };
     }
