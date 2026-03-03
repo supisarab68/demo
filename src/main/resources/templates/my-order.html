@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Order</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -66,5 +67,17 @@
 
 </div>
 
+<style>
+    @media (max-width: 480px) {
+        .order-container {
+            max-width: 100%;
+            width: 100%;
+            margin: 0;
+            border-radius: 0;
+            min-height: 100vh;
+            box-shadow: none;
+        }
+    }
+</style>
 </body>
 </html>

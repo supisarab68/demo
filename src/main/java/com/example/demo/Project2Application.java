@@ -39,12 +39,6 @@ public class Project2Application {
             cold_espresso.setPrice(40.0);
             cold_espresso.setCategory(MenuCategory.COLD_BEVERAGE);
             cold_espresso.setImage("/image/cold_espresso.jpg");
-
-            MenuItem cold_latte = new MenuItem();
-            cold_latte.setName("Latte (Cold)");
-            cold_latte.setPrice(40.0);
-            cold_latte.setCategory(MenuCategory.COLD_BEVERAGE);
-            cold_latte.setImage("/image/cold_latte.jpg");
             
             MenuItem cold_cappuccino = new MenuItem();
             cold_cappuccino.setName("Cappuccino (Cold)");
@@ -144,18 +138,6 @@ public class Project2Application {
             hot_cocoa.setPrice(30.0);
             hot_cocoa.setCategory(MenuCategory.HOT_BEVERAGE);
             hot_cocoa.setImage("/image/hot_cocoa.jpg");
-
-            MenuItem hot_green_tea = new MenuItem();
-            hot_green_tea.setName("Green Tea (Hot)");
-            hot_green_tea.setPrice(25.0);
-            hot_green_tea.setCategory(MenuCategory.HOT_BEVERAGE);
-            hot_green_tea.setImage("/image/hot_green_tea.jpg");
-
-            MenuItem hot_matcha = new MenuItem();
-            hot_matcha.setName("Matcha (Hot)");
-            hot_matcha.setPrice(35.0);
-            hot_matcha.setCategory(MenuCategory.HOT_BEVERAGE);
-            hot_matcha.setImage("/image/hot_matcha.jpg");
 
             MenuItem hot_thai_tea = new MenuItem();
             hot_thai_tea.setName("Thai Milk Tea (Hot)");
