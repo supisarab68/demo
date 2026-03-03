@@ -57,7 +57,10 @@
         <div class="order-actions">
             <a th:href="@{/}" class="close-btn">Cancel</a>
             
-            <button type="button" class="confirm-btn" onclick="sessionStorage.setItem('orderMessage', 'รายการเข้าครัวแล้ว! กรุณารอซักครู่...'); window.location.href='/';">Order Now</button>
+            <form th:action="@{/}" method="get" style="margin: 0; display: contents;">
+                <button type="submit" class="confirm-btn" onclick="sessionStorage.setItem('orderMessage', 'รายการเข้าครัวแล้ว! 👨‍🍳🍳');">Order Now</button>
+            </form>
+
         </div>
 
     </div>
